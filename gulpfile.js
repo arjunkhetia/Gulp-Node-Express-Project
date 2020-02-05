@@ -5,13 +5,14 @@ var portfinder = require('portfinder');
 var port = 3000;
 var portSpan = 999;
 
-gulp.task('serve', function() {
+gulp.task('serve', async function() {
   portfinder.getPort({
     port: port,    // minimum port number
     stopPort: port + portSpan // maximum port number
   }, function (err, openPort) {
     if (err) throw err;
     port = openPort;
+    process.env['PORT'] = openPort;
     console.log('Server will start on port ' + port);
     nodemon({
       script: 'bin/www',
